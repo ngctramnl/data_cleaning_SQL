@@ -20,7 +20,7 @@ SELECT
 	gdp_percapita,
 	inflation_rate,
 	total_investment,
-    COALESCE(unemployment_rate, (SELECT AVG(unemployment_rate) FROM world.economies WHERE unemployment_rate IS NOT NULL)) AS filled_unemployment_rate,
+	COALESCE(unemployment_rate, (SELECT AVG(unemployment_rate) FROM world.economies WHERE unemployment_rate IS NOT NULL)) AS filled_unemployment_rate,
 	ROW_NUMBER() OVER(PARTITION BY code, unemployment_rate) AS row_number
 FROM world.economies)
 
