@@ -21,7 +21,7 @@ SELECT
 	inflation_rate,
 	total_investment,
 	COALESCE(unemployment_rate, (SELECT AVG(unemployment_rate) FROM world.economies WHERE unemployment_rate IS NOT NULL)) AS filled_unemployment_rate,
-	ROW_NUMBER() OVER(PARTITION BY code, unemployment_rate) AS row_number
+	ROW_NUMBER() OVER(PARTITION BY code, year) AS row_number
 FROM world.economies)
 
 -- Discarding duplicate rows --
@@ -30,7 +30,7 @@ FROM clean
 WHERE row_number = 1;
 ```
 ## Duplicate rows
-To identify duplicate rows, I use `ROW_NUMBER()` to assign numbers to rows based on identical combinations. By choosing the `PARTITION` of the window function, I specify over code, unemployment_rate I want to look for duplicates.
+To identify duplicate rows, I use `ROW_NUMBER()` to assign numbers to rows based on identical combinations. By choosing the `PARTITION` of the window function, I specify over code, year I want to look for duplicates.
 
 I use `PARTITION BY` to assign row numbers based on the combination of country code and unemployment rate. Duplicate rows have a value of 2 or greater.
 ### Discarding duplicate rows
