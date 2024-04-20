@@ -58,9 +58,10 @@ WHERE gov_form LIKE '%Monarchy%'
 ```
 ## Data types
 In the query below, I retrieve each column and the data type for the `rental` table in the `dvdrentals` schema.
-```SELECT 
+```
+SELECT 
 	column_name,
-    data_type
+	data_type
 FROM information_schema.columns
 WHERE table_name = 'rental'
 ```
